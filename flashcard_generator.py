@@ -24,7 +24,9 @@ rewrite_pipeline = pipeline(
 )
 
 def chunk_text(text, max_len=400):
+    print('started tokenizing')
     sentences = sent_tokenize(text)
+    print('tokenized all text!')
     chunks = []
     current = ""
     for s in sentences:
@@ -38,10 +40,10 @@ def chunk_text(text, max_len=400):
     return chunks
 
 def generate_flashcards(text, max_len=400):
+    print('generate_flashcards started processing...')
+
     chunks = chunk_text(text, max_len=max_len)
     flashcards = []
-
-    print('generate_flashcards started processing...')
     for chunk in chunks:
         try:
             q = qa_pipeline(f"generate question: {chunk}", max_length=64, do_sample=False)[0]["generated_text"]
