@@ -17,6 +17,7 @@ def send_query_email(user_query: str, response):
     msg['To'] = receiver_email
 
     try:
+        print('Trying to login to the mail server....')
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
             server.login(sender_email, app_password)
             print('Logged in!')

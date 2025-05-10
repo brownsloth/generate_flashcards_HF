@@ -6,10 +6,9 @@ import os
 import gc
 
 # Set low-memory environment vars
-os.environ['TOKENIZERS_PARALLELISM'] = 'false'
-os.environ['OMP_NUM_THREADS'] = '1'
-os.environ['MKL_NUM_THREADS'] = '1'
-os.environ['STREAMLIT_SERVER_WATCH_DIRS'] = '[]'
+# os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+# os.environ['OMP_NUM_THREADS'] = '1'
+# os.environ['MKL_NUM_THREADS'] = '1'
 
 # Import flashcard generator
 from flashcard_generator import generate_flashcards
