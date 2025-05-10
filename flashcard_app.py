@@ -53,11 +53,11 @@ max_chunk_length = st.sidebar.slider(
     help="Shorter chunks = less memory used"
 )
 
-answer_length = st.sidebar.selectbox(
-    "Answer Detail Level",
-    options=["SHORT", "MEDIUM", "LONG"],
-    index=1
-)
+# answer_length = st.sidebar.selectbox(
+#     "Answer Detail Level",
+#     options=["SHORT", "MEDIUM", "LONG"],
+#     index=1
+# )
 
 def dynamic_answer_len(answer_length: str):
     return {
@@ -76,8 +76,7 @@ if st.button("🚀 Generate Flashcards") and input_text.strip():
 
     try:
         flashcards = generate_flashcards(
-            input_text,
-            max_len=dynamic_answer_len(answer_length)
+            input_text
         )
 
         st.session_state.flashcards = flashcards

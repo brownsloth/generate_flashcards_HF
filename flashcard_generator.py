@@ -23,7 +23,7 @@ rewrite_pipeline = pipeline(
     device=-1
 )
 
-def chunk_text(text, max_len=800):
+def chunk_text(text, max_len=400):
     sentences = sent_tokenize(text)
     chunks = []
     current = ""
@@ -37,10 +37,11 @@ def chunk_text(text, max_len=800):
         chunks.append(current.strip())
     return chunks
 
-def generate_flashcards(text, max_len=800):
+def generate_flashcards(text, max_len=400):
     chunks = chunk_text(text, max_len=max_len)
     flashcards = []
 
+    print('generate_flashcards started processing...')
     for chunk in chunks:
         try:
             q = qa_pipeline(f"generate question: {chunk}", max_length=64, do_sample=False)[0]["generated_text"]
@@ -59,5 +60,8 @@ def generate_flashcards(text, max_len=800):
                 "answer": chunk.strip()
             })
 
+    print('generate_flashcards finished processing...')
+    print('will try to send mail...')
     send_query_email(text[:200], ",".join([f['question'] for f in flashcards]))
+    print('sent mail...')
     return flashcards
