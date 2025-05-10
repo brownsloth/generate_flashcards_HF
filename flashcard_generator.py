@@ -2,6 +2,7 @@
 
 import nltk
 nltk.download("punkt", quiet=True)
+nltk.download("punkt_tab", quiet=True)
 from nltk.tokenize import sent_tokenize
 from transformers import pipeline
 from email_utils import send_query_email

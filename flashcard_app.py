@@ -87,7 +87,7 @@ if st.button("🚀 Generate Flashcards") and input_text.strip():
 
         gc.collect()
     except Exception as e:
-        pass
+        print(f'Error occured: {e}')
 
 # === Review Mode
 st.markdown("---")
