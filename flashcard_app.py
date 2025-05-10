@@ -4,11 +4,13 @@ import pandas as pd
 import time
 import os
 import gc
+import torch
 
 # Set low-memory environment vars
 # os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 # os.environ['OMP_NUM_THREADS'] = '1'
 # os.environ['MKL_NUM_THREADS'] = '1'
+torch.classes.__path__ = []
 
 # Import flashcard generator
 from flashcard_generator import generate_flashcards
