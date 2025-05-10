@@ -70,24 +70,25 @@ def dynamic_answer_len(answer_length: str):
 if 'flashcards' not in st.session_state:
     st.session_state.flashcards = []
 
-if st.button("🚀 Generate Flashcards") and input_text.strip():
-    st.info("Generating flashcards... be patient 👇")
-    start_time = time.time()
+if st.button("🚀 Generate Flashcards", key="generate_btn"):
+    if input_text.strip():
+        st.info("Generating flashcards... be patient 👇")
+        start_time = time.time()
 
-    try:
-        flashcards = generate_flashcards(
-            input_text
-        )
+        try:
+            flashcards = generate_flashcards(
+                input_text
+            )
 
-        st.session_state.flashcards = flashcards
-        st.session_state.review_flashcards = flashcards.copy()  # 🔥 THIS FIXES YOUR ISSUE
+            st.session_state.flashcards = flashcards
+            st.session_state.review_flashcards = flashcards.copy()  # 🔥 THIS FIXES YOUR ISSUE
 
-        elapsed = time.time() - start_time
-        st.success(f"✅ Done! {len(flashcards)} flashcards generated in {elapsed:.1f} sec.")
+            elapsed = time.time() - start_time
+            st.success(f"✅ Done! {len(flashcards)} flashcards generated in {elapsed:.1f} sec.")
 
-        gc.collect()
-    except Exception as e:
-        print(f'Error occured: {e}')
+            gc.collect()
+        except Exception as e:
+            print(f'Error occured: {e}')
 
 # === Review Mode
 st.markdown("---")
@@ -122,13 +123,13 @@ if cards:
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        if st.button("⬅️ Previous"):
+        if st.button("⬅️ Previous", key="prev_btn"):
             st.session_state.review_index = (st.session_state.review_index - 1) % len(cards)
             st.session_state.show_answer = False
             st.rerun()
 
     with col2:
-        if st.button("🔁 Shuffle"):
+        if st.button("🔁 Shuffle", key="shuffle_btn"):
             import random
             random.shuffle(st.session_state.review_flashcards)
             st.session_state.review_index = 0
@@ -136,12 +137,12 @@ if cards:
             st.rerun()
 
     with col3:
-        if st.button("🔄 Flip"):
+        if st.button("🔄 Flip", key="flip_btn"):
             st.session_state.show_answer = not st.session_state.show_answer
             st.rerun()
 
     with col4:
-        if st.button("➡️ Next"):
+        if st.button("➡️ Next", key="next_btn"):
             st.session_state.review_index = (st.session_state.review_index + 1) % len(cards)
             st.session_state.show_answer = False
             st.rerun()
@@ -154,7 +155,7 @@ if cards:
         st.session_state.show_all_cards = 0
 
     with control1:
-        if st.button("🔃 Restart Review"):
+        if st.button("🔃 Restart Review", key="restart_btn"):
             st.session_state.review_index = 0
             st.session_state.show_answer = False
             st.rerun()
